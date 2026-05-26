@@ -76,14 +76,19 @@ class Command(BaseCommand):
             meta = json_metadata.get(movie_id, {})
 
             year = meta.get('year')
-            if not year and pd.notna(row.get('release_date')):
-                try:
-                    year = int(str(row['release_date'])[:4])
-                except ValueError:
-                    year = None
-            elif year:
+            if year:
                 try:
                     year = int(year)
+                except ValueError:
+                    year = None
+            else:
+                year = None
+
+            if not year and pd.notna(row.get('release_date')):
+                try:
+                    year_str = str(row['release_date']).strip()
+                    if year_str:
+                        year = int(year_str[:4])
                 except ValueError:
                     year = None
 
