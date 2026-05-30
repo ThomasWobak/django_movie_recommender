@@ -7,8 +7,8 @@ class Command(BaseCommand):
     help = 'Calculates similar movies based on partial genre overlap and popularity'
 
     def handle(self, *args, **kwargs):
-        self.stdout.write("Clearing old Genre-Overlap results...")
-        SimilarityResult.objects.filter(strategy_name="Genre-Overlap").delete()
+        self.stdout.write("Clearing old Baseline Heuristic results...")
+        SimilarityResult.objects.filter(strategy_name="Baseline Heuristic Genre_Popularity").delete()
 
         self.stdout.write("Fetching movies from database...")
         movies = list(Movie.objects.only('id', 'genres', 'popularity'))
@@ -49,11 +49,11 @@ class Command(BaseCommand):
                 results_to_create.append(SimilarityResult(
                     source_movie=data['obj'],
                     target_movie=movie_data[target_id]['obj'],
-                    strategy_name="Genre-Overlap",
+                    strategy_name="Baseline Heuristic Genre_Popularity",
                     rank=rank
                 ))
 
         self.stdout.write(f"Inserting {len(results_to_create)} similarity records into PostgreSQL...")
         SimilarityResult.objects.bulk_create(results_to_create, batch_size=5000)
 
-        self.stdout.write(self.style.SUCCESS('Successfully calculated Genre-Overlap baseline.'))
+        self.stdout.write(self.style.SUCCESS('Successfully calculated Baseline Heuristic Genre_Popularity.'))
