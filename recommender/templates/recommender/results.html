@@ -1,0 +1,29 @@
+{% extends 'recommender/base.html' %}
+
+{% block content %}
+    <h2>Search Results for "{{ query }}"</h2>
+    <a href="{% url 'search' %}">← Back to Search</a>
+    <br><br>
+
+    {% if movies %}
+        <div style="display: flex; flex-wrap: wrap; gap: 15px;">
+            {% for movie in movies %}
+                <a href="{% url 'recommendations' movie.movielens_id %}">
+                    <div class="movie-card">
+                        {% if movie.poster_url %}
+                            <img src="{{ movie.poster_url }}" alt="{{ movie.title }}">
+                        {% else %}
+                            <div style="height: 225px; background: #eee; display: flex; align-items: center; justify-content: center;">
+                                No Poster
+                            </div>
+                        {% endif %}
+                        <h4>{{ movie.title }}</h4>
+                        <p>{{ movie.year }}</p>
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No movies found matching that title.</p>
+    {% endif %}
+{% endblock %}

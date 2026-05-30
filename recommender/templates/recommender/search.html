@@ -1,0 +1,11 @@
+{% extends 'recommender/base.html' %}
+
+{% block content %}
+    <h2>Find a Reference Movie</h2>
+    <div class="search-box">
+        <form action="{% url 'search_results' %}" method="GET">
+            <input type="text" name="q" placeholder="Enter a movie title..." required style="padding: 10px; width: 300px;">
+            <button type="submit" style="padding: 10px 20px;">Search</button>
+        </form>
+    </div>
+{% endblock %}
