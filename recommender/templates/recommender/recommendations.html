@@ -27,9 +27,7 @@
                             {% if movie.poster_url %}
                                 <img src="{{ movie.poster_url }}" alt="{{ movie.title }}">
                             {% else %}
-                                <div style="height: 225px; background: #eee; display: flex; align-items: center; justify-content: center;">
-                                    No Poster
-                                </div>
+                                <div class="no-poster">No Poster</div>
                             {% endif %}
                             <h5>{{ movie.title }}</h5>
                             <p>{{ movie.year }}</p>

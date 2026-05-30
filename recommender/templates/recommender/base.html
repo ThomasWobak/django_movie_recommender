@@ -5,63 +5,206 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Movie Recommender</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
+        /* CSS Reset & Base Styles */
+        * {
+            box-sizing: border-box;
             margin: 0;
-            padding: 20px;
-            background-color: #f4f4f9;
+            padding: 0;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+            padding: 2rem;
         }
         .container {
             max-width: 1200px;
             margin: 0 auto;
+            background: #ffffff;
+            padding: 2rem 3rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
         }
-        .movie-card {
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            padding: 10px;
-            text-align: center;
-            background: white;
-            min-width: 150px;
-            max-width: 150px;
+        h1 {
+            color: #1a1a1a;
+            margin-bottom: 0.5rem;
+            font-size: 2.2rem;
         }
-        .movie-card img {
-            max-width: 100%;
-            border-radius: 4px;
+        h2, h3, h4 {
+            color: #2c3e50;
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
         }
-        .movie-row {
+        hr {
+            border: 0;
+            height: 1px;
+            background: #e9ecef;
+            margin: 1.5rem 0;
+        }
+        a {
+            text-decoration: none;
+            color: #3498db;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+        a:hover {
+            color: #2980b9;
+        }
+
+        /* Search Box */
+        .search-box form {
             display: flex;
-            gap: 15px;
-            overflow-x: auto;
-            padding-bottom: 10px;
+            gap: 10px;
+            margin-bottom: 2rem;
         }
+        .search-box input[type="text"] {
+            flex: 1;
+            max-width: 500px;
+            padding: 12px 16px;
+            font-size: 1rem;
+            border: 1px solid #ced4da;
+            border-radius: 6px;
+            transition: border-color 0.2s;
+        }
+        .search-box input[type="text"]:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+        }
+        .search-box button {
+            padding: 12px 24px;
+            font-size: 1rem;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.2s;
+        }
+        .search-box button:hover {
+            background-color: #2980b9;
+        }
+
+        /* Reference Movie Banner */
         .reference-movie {
             display: flex;
-            gap: 20px;
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 30px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            gap: 2rem;
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 3rem;
+            border: 1px solid #e9ecef;
         }
         .reference-movie img {
             max-width: 200px;
             border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
-        .search-box {
-            margin-bottom: 20px;
+        .reference-movie .details {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
-        a {
-            text-decoration: none;
-            color: inherit;
+        .reference-movie p {
+            margin-bottom: 0.8rem;
+            color: #555;
+        }
+
+        /* Movie Cards & Rows */
+        .movie-row {
+            display: flex;
+            gap: 1.5rem;
+            overflow-x: auto;
+            padding-bottom: 1.5rem;
+            /* Smooth scrolling for horizontal overflow */
+            scroll-behavior: smooth;
+            /* Hide scrollbar for cleaner look (optional, works in Webkit) */
+        }
+        .movie-row::-webkit-scrollbar {
+            height: 8px;
+        }
+        .movie-row::-webkit-scrollbar-thumb {
+            background-color: #cbd5e1;
+            border-radius: 4px;
+        }
+
+        .results-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        .movie-card {
+            display: flex;
+            flex-direction: column;
+            width: 160px;
+            min-width: 160px;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #e9ecef;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            height: 100%;
         }
         a:hover .movie-card {
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+            border-color: #cbd5e1;
+        }
+        .movie-card img {
+            width: 100%;
+            height: 240px;
+            object-fit: cover;
+        }
+        .movie-card .no-poster {
+            height: 240px;
+            background: #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #64748b;
+            font-size: 0.9rem;
+            text-align: center;
+            padding: 1rem;
+        }
+        .movie-card-content {
+            padding: 0.8rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .movie-card h4, .movie-card h5 {
+            margin: 0 0 0.2rem 0;
+            font-size: 0.95rem;
+            color: #1e293b;
+            /* Truncate long titles */
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .movie-card p {
+            margin: 0;
+            font-size: 0.85rem;
+            color: #64748b;
+        }
+
+        /* Strategy Section Headers */
+        .strategy-section h4 {
+            background-color: #2c3e50;
+            color: white;
+            display: inline-block;
+            padding: 0.4rem 1rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Movie Recommender System</h1>
+        <h1>🍿 Movie Recommender</h1>
         <hr>
         {% block content %}
         {% endblock %}
