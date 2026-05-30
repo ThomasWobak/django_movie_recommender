@@ -1,0 +1,46 @@
+{% extends 'recommender/base.html' %}
+
+{% block content %}
+    <a href="{% url 'search' %}">← Start New Search</a>
+    <br><br>
+
+    <div class="reference-movie">
+        {% if reference_movie.poster_url %}
+            <img src="{{ reference_movie.poster_url }}" alt="{{ reference_movie.title }}">
+        {% endif %}
+        <div>
+            <h2>{{ reference_movie.title }} ({{ reference_movie.year }})</h2>
+            <p><strong>Genres:</strong> {{ reference_movie.genres }}</p>
+            <p><strong>Plot:</strong> {{ reference_movie.plot }}</p>
+        </div>
+    </div>
+
+    <h3>Similar Movies</h3>
+
+    {% if strategies %}
+        {% for strategy_name, recommended_movies in strategies.items %}
+            <h4>Strategy: {{ strategy_name }}</h4>
+            <div class="movie-row">
+                {% for movie in recommended_movies %}
+                    <a href="{% url 'recommendations' movie.movielens_id %}">
+                        <div class="movie-card">
+                            {% if movie.poster_url %}
+                                <img src="{{ movie.poster_url }}" alt="{{ movie.title }}">
+                            {% else %}
+                                <div style="height: 225px; background: #eee; display: flex; align-items: center; justify-content: center;">
+                                    No Poster
+                                </div>
+                            {% endif %}
+                            <h5>{{ movie.title }}</h5>
+                            <p>{{ movie.year }}</p>
+                        </div>
+                    </a>
+                {% endfor %}
+            </div>
+            <hr>
+        {% endfor %}
+    {% else %}
+        <p>No recommendations have been calculated for this movie yet.</p>
+    {% endif %}
+
+{% endblock %}

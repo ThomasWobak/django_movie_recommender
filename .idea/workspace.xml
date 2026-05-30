@@ -4,8 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e82a3fca-c8d0-4890-b331-b491ea8a3334" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/recommender/urls.py" afterDir="false" />
+    <list default="true" id="e82a3fca-c8d0-4890-b331-b491ea8a3334" name="Changes" comment="added base URL structure">
+      <change afterPath="$PROJECT_DIR$/recommender/templates/recommender/base.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/recommender/templates/recommender/recommendations.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/recommender/templates/recommender/results.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/recommender/templates/recommender/search.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -100,6 +104,30 @@
       <option name="presentableId" value="Default" />
       <updated>1779798068808</updated>
     </task>
+    <task id="LOCAL-00001" summary="added base URL structure">
+      <option name="closed" value="true" />
+      <created>1780135668209</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1780135668209</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="added base URL structure" />
+    <option name="LAST_COMMIT_MESSAGE" value="added base URL structure" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/recommender_project/urls.py</url>
+          <line>16</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
