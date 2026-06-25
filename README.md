@@ -80,3 +80,6 @@ python manage.py runserver
 ```
 
 Navigate to http://127.0.0.1:8000/ in your web browser to view the application.
+
+
+>formatting done by Google Gemini. Text written by myself
